@@ -2,6 +2,7 @@ package com.example.restservice;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,12 @@ public class GreetingController {
 	public Greeting singleGreetings(@PathVariable String id) {
 		return new Greeting(counter.incrementAndGet(), String.format("Ciao %s!", id));
 	}
+
+	@DeleteMapping("/greetings/{id}")
+	public Greeting deleteGreeting(@PathVariable String id) {
+		return new Greeting(new Integer(id), String.format("Eliminato %s!", id));
+	}
+
 	/*
 	@PutMapping("/greeting/{id}")
 	public Greeting aggiornaGreeting(@RequestParam(value = "id", defaultValue = "1") String id) {
