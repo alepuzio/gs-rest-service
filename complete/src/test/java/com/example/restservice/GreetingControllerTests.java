@@ -74,9 +74,9 @@ public class GreetingControllerTests {
 
 	@Test
 	public void postGreeting() throws Exception {
-		this.mockMvc.perform( post("/greetings").content("content=altro") )
+		this.mockMvc.perform( post("/greetings")/*.content("content=altro")*/ )
 		.andDo(print()).andExpect(status().isOk())
-		.andExpect(jsonPath("$.content").value("Creato Nuova risorsa!"));
+		.andExpect(jsonPath("$.content").value("Creata nuova risorsa!"));
 	}
 	
 }

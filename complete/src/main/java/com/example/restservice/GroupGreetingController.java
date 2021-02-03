@@ -22,8 +22,8 @@ public class GroupGreetingController {
 	}
 	
 	@PostMapping("/greetings")
-	public Greeting creaGreetings(@RequestParam(value = "name", defaultValue = "Nuova risorsa") String name) {
-		return new Greeting(counter.incrementAndGet(), String.format("Creato %s!", name));
+	public Greeting creaGreetings(/*@RequestParam(value = "name", defaultValue = "Nuova risorsa") String name*/) {
+		return new Greeting(counter.incrementAndGet(), "Creata nuova risorsa!");
 	}
 
 }
