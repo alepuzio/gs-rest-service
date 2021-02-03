@@ -6,9 +6,9 @@
 :icons: font
 :source-highlighter: prettify
 
-This guide walks you through the process of creating a "`Hello, World`" RESTful web
+This guide walks you through the process of creating a "Hello, World" RESTful web
 service with Spring.
-It's a personal copy of the repository (gs-rest-service)[https://github.com/spring-guides/gs-rest-service]: please refer it for the technical explications.
+It's a personal copy of the repository [gs-rest-service](https://github.com/spring-guides/gs-rest-service): please refer it for the technical explications.
 
-In my repo, I show some personal modify and I show how I manage my Git workflow.
+In my repo, I show some personal modify and I show how I manage my Git workflow with hotfix and features.
 
