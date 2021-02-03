@@ -17,4 +17,9 @@ public class Greeting {
 	public String getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Greeting[%s,%s]", id, content);
+	}
 }
