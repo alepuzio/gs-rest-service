@@ -17,6 +17,7 @@ package com.example.restservice;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,7 +40,7 @@ public class GreetingControllerTests {
 	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
 		this.mockMvc.perform(get("/greetings")).andDo(print())
 		.andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, World!"));
+				.andExpect(jsonPath("$.content").value("Ciao, World!"));
 	}
 
 	@Test
@@ -62,12 +63,20 @@ public class GreetingControllerTests {
 		this.mockMvc.perform( delete("/greetings/12") )
         		.andExpect( status().isOk() );
 	}
-
+/*
 	@Test
 	public void putGreeting() throws Exception {
 		this.mockMvc.perform( put("/greetings/11").content("id=11&content=altro") )
 		.andDo(print()).andExpect(status().isOk())
 		.andExpect(jsonPath("$.content").value("Aggiornato 11 in altro!"));
+	}
+	*/
+
+	@Test
+	public void postGreeting() throws Exception {
+		this.mockMvc.perform( post("/greetings").content("content=altro") )
+		.andDo(print()).andExpect(status().isOk())
+		.andExpect(jsonPath("$.content").value("Creato Nuova risorsa!"));
 	}
 	
 }
