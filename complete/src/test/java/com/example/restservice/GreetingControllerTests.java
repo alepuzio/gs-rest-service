@@ -16,6 +16,7 @@
 package com.example.restservice;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,17 +37,26 @@ public class GreetingControllerTests {
 
 	@Test
 	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-
-		this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/greetings")).andDo(print())
+		.andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("Hello, World!"));
 	}
 
 	@Test
 	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
-
-		this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
+		this.mockMvc.perform(get("/greetings/12"))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
+				.andExpect(jsonPath("$.content").value("Ciao 12!"));
 	}
 
+	/*
+	@Test error: {id} is not parsed because param() does'nt affect the path parameter, only the request parameter
+	public void failParamGreetingShouldReturnTailoredMessage() throws Exception {
+		this.mockMvc.perform(get("/greetings/{id}").param("id", "13"))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.content").value("Ciao 13!"));
+	}
+*/
+	
+	
 }
