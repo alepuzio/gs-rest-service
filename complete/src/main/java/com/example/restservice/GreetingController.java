@@ -29,7 +29,6 @@ public class GreetingController {
 	@ResponseBody
 	public ResponseEntity<Greeting> aggiornaGreeting(@PathVariable(value="idResource") String id, @RequestBody Greeting greeting) {
 		System.out.println(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
-		System.out.println(">>"+greeting.getContent()+"<<");
 		Greeting updatedGreeting = new Greeting(Long.parseLong(id), greeting.getContent()); 
 		return  ResponseEntity.ok(new Greeting(updatedGreeting.getId(),
 				String.format("Aggiornato [%s] contenuto in -%s-!", id, updatedGreeting.getContent())));
