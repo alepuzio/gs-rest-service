@@ -3,13 +3,11 @@ package com.example.restservice;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +32,9 @@ public class GreetingController {
 	@ResponseBody
 	public ResponseEntity<Greeting> aggiornaGreeting(@PathVariable(value="idResource") String id, @RequestBody Greeting greeting) {
 		System.out.println(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
-		return  ResponseEntity.ok(new Greeting(greeting.getId(),
-				String.format("Aggiornato [%s] contenuto in -%s-!", id, greeting.getContent())));
+		Greeting updatedGreeting = new Greeting(Long.parseLong(id), greeting.getContent()); 
+		return  ResponseEntity.ok(new Greeting(updatedGreeting.getId(),
+				String.format("Aggiornato [%s] contenuto in -%s-!", id, updatedGreeting.getContent())));
 	}
 
 }
