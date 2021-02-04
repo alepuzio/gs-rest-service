@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
@@ -49,15 +50,6 @@ public class GreetingControllerTests {
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("Ciao 12!"));
 	}
-
-	/*
-	@Test error: {id} is not parsed because param() does'nt affect the path parameter, only the request parameter
-	public void failParamGreetingShouldReturnTailoredMessage() throws Exception {
-		this.mockMvc.perform(get("/greetings/{id}").param("id", "13"))
-				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Ciao 13!"));
-	}
-*/
 	@Test
 	public void deleteGreeting() throws Exception {
 		this.mockMvc.perform( delete("/greetings/12") )
@@ -66,9 +58,12 @@ public class GreetingControllerTests {
 /*
 	@Test
 	public void putGreeting() throws Exception {
-		this.mockMvc.perform( put("/greetings/11").content("id=11&content=altro") )
+		this.mockMvc.perform( put("/greetings/13")
+		          .contentType(MediaType.APPLICATION_JSON_VALUE)
+		          .content("{\"id\":\"13\",\"content\":\"altro\"}") 
+					.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andDo(print()).andExpect(status().isOk())
-		.andExpect(jsonPath("$.content").value("Aggiornato 11 in altro!"));
+		.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
 	}
 	*/
 
@@ -78,5 +73,20 @@ public class GreetingControllerTests {
 		.andDo(print()).andExpect(status().isOk())
 		.andExpect(jsonPath("$.content").value("Creata nuova risorsa!"));
 	}
+	
+/***********
+ * Test commentati lasciati per documentazione
+ * 
+ * **/
+/*
+ * 	@Test error: {id} is not parsed because param() does'nt affect the path parameter, only the request parameter
+	public void failParamGreetingShouldReturnTailoredMessage() throws Exception {
+		this.mockMvc.perform(get("/greetings/{id}").param("id", "13"))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.content").value("Ciao 13!"));
+	}
+*/
+	
+
 	
 }

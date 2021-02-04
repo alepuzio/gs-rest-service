@@ -2,15 +2,13 @@ package com.example.restservice;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,10 +37,14 @@ public class GreetingController {
 				String.format("Aggiornato contenuto in %s", formParams.get("content")));
 	}
 	
-	@PutMapping("/greetings/{id}") 
-	public Greeting aggiornaGreeting(@PathVariable(value="id") String id, @RequestBody Greeting greeting) {
-		return new Greeting(greeting.getId(),
-				String.format("Aggiornato contenuto in %s", greeting.getContent()));
+	@PutMapping("/greetings/{idResource}") 
+	@ResponseBody
+	public ResponseEntity<Greeting> aggiornaGreeting(@PathVariable(value="idResource") String id, @RequestBody Greeting greeting) {
+		//Greeting greeting = new Greeting(-1, "nadadenada");
+		//String id = new Long(greeting.getId()).toString();
+		System.out.println(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
+		return  ResponseEntity.ok(new Greeting(greeting.getId(),
+				String.format("Aggiornato [%s] contenuto in -%s-!", greeting.getId(), greeting.getContent())));
 	}
 
 	/*
