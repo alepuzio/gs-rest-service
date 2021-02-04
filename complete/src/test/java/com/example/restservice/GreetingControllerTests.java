@@ -55,7 +55,7 @@ public class GreetingControllerTests {
 		this.mockMvc.perform( delete("/greetings/12") )
         		.andExpect( status().isOk() );
 	}
-/*
+
 	@Test
 	public void putGreeting() throws Exception {
 		this.mockMvc.perform( put("/greetings/13")
@@ -65,7 +65,7 @@ public class GreetingControllerTests {
 		.andDo(print()).andExpect(status().isOk())
 		.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
 	}
-	*/
+
 
 	@Test
 	public void postGreeting() throws Exception {
