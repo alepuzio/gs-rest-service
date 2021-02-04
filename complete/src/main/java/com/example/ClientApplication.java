@@ -1,10 +1,13 @@
 package com.example;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
@@ -45,14 +48,23 @@ public class ClientApplication {
 	}
 
 	public void getList() {
-		Greeting getGreeting = this.restTemplate.getForObject("http://localhost:8080/greetings", Greeting.class);
-		System.out.println("getList():"+getGreeting);
+		ResponseEntity<List> result = this.restTemplate.getForEntity("http://localhost:8080/greetings", List.class);
+		if(HttpStatus.ACCEPTED == result.getStatusCode()){
+			List<Greeting> getGreeting = result.getBody();
+			System.out.println("getList():"+getGreeting);
+			
+		}
 	}
 
 	public void getSingle(long id) {
-		Greeting getGreeting = restTemplate.getForObject(String.format("http://localhost:8080/greetings/%s", id),
+		ResponseEntity<Greeting> result = restTemplate.getForEntity(String.format("http://localhost:8080/greetings/%s", id),
 				Greeting.class);
-		System.out.println("getSingle("+id+"):"+getGreeting);
+		final HttpStatus status = result.getStatusCode();
+		if(HttpStatus.ACCEPTED == status){
+			System.out.println("getSingle("+id+"):" + result.getBody());			
+		}else{
+			System.err.println("getSingle("+id+"):" + status);
+		}
 	}
 
 	public void delete(long id) {
@@ -61,13 +73,18 @@ public class ClientApplication {
 
 	public void post() {
 		Greeting greeting = new Greeting(-2, "creato da client REST");
-		restTemplate.postForEntity("http://localhost:8080/greetings/", greeting, Greeting.class);
+		ResponseEntity<Greeting> result = restTemplate.postForEntity("http://localhost:8080/greetings/", greeting, Greeting.class);
+		final HttpStatus status = result.getStatusCode();
+		if(HttpStatus.ACCEPTED == status){
+			System.out.println("post():" + result.getBody());			
+		}else{
+			System.err.println("post():" + status);
+		}
 	}
 
 	public void putSingle(int id) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("id"
-				+ "",""+id);
+		params.put("id",""+id);
 		Greeting greeting = new Greeting(id, "contenuto putSingle costruttore");
 		restTemplate.put(String.format("http://localhost:8080/greetings/%s", id), greeting, params);
 	}
