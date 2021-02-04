@@ -2,7 +2,6 @@ package com.example.restservice;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +14,6 @@ import com.example.restservice.bean.Greeting;
 @RestController
 public class GroupGreetingController {
 
-	
-	private final AtomicLong counter = new AtomicLong();
-
-
 	@GetMapping("/greetings")
 	public ResponseEntity<List<Greeting>> leggiGreetings(@RequestParam(value = "name", defaultValue = "World") String name) {
 		List<Greeting> result = new ArrayList<Greeting>();
@@ -29,7 +24,7 @@ public class GroupGreetingController {
 	
 	@PostMapping("/greetings")
 	public ResponseEntity<Greeting> creaGreetings() {
-		Greeting result = new Greeting(counter.incrementAndGet(), "Creata nuova risorsa!");
+		Greeting result = new Greeting(1, "Creata nuova risorsa!");
 		return ResponseEntity.ok(result);
 	}
 
