@@ -1,4 +1,4 @@
-package com.example.restservice.application;
+package com.example;
 
 import java.util.HashMap;
 import java.util.Map;
