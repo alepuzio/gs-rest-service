@@ -19,15 +19,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import com.example.restservice.bean.Greeting;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,11 +44,15 @@ public class GreetingControllerTests {
 
 
 	@Test
-	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
-		this.mockMvc.perform(get("/greetings/12"))
+	public void getSingleGreetings() throws Exception {
+		MvcResult mvcResult = this.mockMvc.perform(get("/greetings/12"))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Ciao 12!"));
+					.andReturn();	
+		String result = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals("{\"Id\":12,\"Content\":\"Ciao 12!\"}", result);
 	}
+	
+	
 	@Test
 	public void deleteGreeting() throws Exception {
 		this.mockMvc.perform( delete("/greetings/12") )
@@ -51,14 +61,31 @@ public class GreetingControllerTests {
 
 	@Test
 	public void putGreeting() throws Exception {
-		this.mockMvc.perform( put("/greetings/13")
+		MvcResult mvcResult = this.mockMvc.perform( put("/greetings/13")
 		          .contentType(MediaType.APPLICATION_JSON_VALUE)
-		          .content("{\"id\":\"13\",\"content\":\"altro\"}") 
+		          .content("{\"id_\":\"13\",\"content\":\"altro\"}") 
 					.accept(MediaType.APPLICATION_JSON_VALUE))
-		.andDo(print()).andExpect(status().isOk())
-		.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
-	}
+		.andReturn();	
+		//.andDo(print()).andExpect(status().isOk())
+				//String result = mvcResult.getResponse().getContentAsString();
+			//	Assertions.assertEquals("{\"Id\":13,\"Content\":\"Aggiornato [13] contenuto in -altro-!\"}", result);
+//				.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
 
+				
+		Greeting anObject = new Greeting(13,"altro");
+	    //... more
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+	    String requestJson = ow.writeValueAsString(anObject );
+
+	    mvcResult = mockMvc.perform(put("/greetings/13").contentType(MediaType.APPLICATION_JSON_VALUE)
+	        .content(requestJson))
+	    //    .andExpect(status().isOk());
+	    		.andReturn();
+	    String result = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals("{\"Id\":13,\"Content\":\"Aggiornato [13] contenuto in -altro-!\"}", result);
+			}
 
 	
 /***********
