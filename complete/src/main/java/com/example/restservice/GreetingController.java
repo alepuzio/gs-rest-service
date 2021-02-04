@@ -1,7 +1,5 @@
 package com.example.restservice;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,19 +15,21 @@ import com.example.restservice.bean.Greeting;
 public class GreetingController {
 
 	@GetMapping("/greetings/{id}")
-	public Greeting singleGreetings(@PathVariable String id) {
-		return new Greeting(Long.parseLong(id), String.format("Ciao %s!", id));
+	@ResponseBody
+	public ResponseEntity<Greeting> singleGreetings(@PathVariable String id) {
+		return ResponseEntity.ok(new Greeting(Long.parseLong(id), String.format("Ciao %s!", id)));
 	}
 
 	@DeleteMapping("/greetings/{id}")
-	public Greeting deleteGreeting(@PathVariable String id) {
-		return new Greeting(new Integer(id), String.format("Eliminato %s!", id));
+	public ResponseEntity<Greeting> deleteGreeting(@PathVariable String id) {
+		return ResponseEntity.ok(new Greeting(new Integer(id), String.format("Eliminato %s!", id)));
 	}
 	
 	@PutMapping("/greetings/{idResource}") 
 	@ResponseBody
 	public ResponseEntity<Greeting> aggiornaGreeting(@PathVariable(value="idResource") String id, @RequestBody Greeting greeting) {
 		System.out.println(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
+		System.out.println(">>"+greeting.getContent()+"<<");
 		Greeting updatedGreeting = new Greeting(Long.parseLong(id), greeting.getContent()); 
 		return  ResponseEntity.ok(new Greeting(updatedGreeting.getId(),
 				String.format("Aggiornato [%s] contenuto in -%s-!", id, updatedGreeting.getContent())));
