@@ -42,65 +42,44 @@ public class GreetingControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-
 	@Test
 	public void getSingleGreetings() throws Exception {
-		MvcResult mvcResult = this.mockMvc.perform(get("/greetings/12"))
-				.andDo(print()).andExpect(status().isOk())
-					.andReturn();	
+		MvcResult mvcResult = this.mockMvc.perform(get("/greetings/12")).andDo(print()).andExpect(status().isOk())
+				.andReturn();
 		String result = mvcResult.getResponse().getContentAsString();
 		Assertions.assertEquals("{\"Id\":12,\"Content\":\"Ciao 12!\"}", result);
 	}
-	
-	
+
 	@Test
 	public void deleteGreeting() throws Exception {
-		this.mockMvc.perform( delete("/greetings/12") )
-        		.andExpect( status().isOk() );
+		this.mockMvc.perform(delete("/greetings/12")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void putGreeting() throws Exception {
-		MvcResult mvcResult = this.mockMvc.perform( put("/greetings/13")
-		          .contentType(MediaType.APPLICATION_JSON_VALUE)
-		          .content("{\"id_\":\"13\",\"content\":\"altro\"}") 
-					.accept(MediaType.APPLICATION_JSON_VALUE))
-		.andReturn();	
-		//.andDo(print()).andExpect(status().isOk())
-				//String result = mvcResult.getResponse().getContentAsString();
-			//	Assertions.assertEquals("{\"Id\":13,\"Content\":\"Aggiornato [13] contenuto in -altro-!\"}", result);
-//				.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
-
-				
-		Greeting anObject = new Greeting(13,"altro");
-	    //... more
-	    ObjectMapper mapper = new ObjectMapper();
-	    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-	    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	    String requestJson = ow.writeValueAsString(anObject );
-
-	    mvcResult = mockMvc.perform(put("/greetings/13").contentType(MediaType.APPLICATION_JSON_VALUE)
-	        .content(requestJson))
-	    //    .andExpect(status().isOk());
-	    		.andReturn();
-	    String result = mvcResult.getResponse().getContentAsString();
+		Greeting anObject = new Greeting(13, "altro");
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+		ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+		String requestJson = ow.writeValueAsString(anObject);
+		MvcResult mvcResult = mockMvc
+				.perform(put("/greetings/13").contentType(MediaType.APPLICATION_JSON_VALUE).content(requestJson))
+				.andExpect(status().isOk()).andReturn();
+		String result = mvcResult.getResponse().getContentAsString();
 		Assertions.assertEquals("{\"Id\":13,\"Content\":\"Aggiornato [13] contenuto in -altro-!\"}", result);
-			}
-
-	
-/***********
- * Test commentati lasciati per documentazione
- * 
- * **/
-/*
- * 	@Test error: {id} is not parsed because param() does'nt affect the path parameter, only the request parameter
-	public void failParamGreetingShouldReturnTailoredMessage() throws Exception {
-		this.mockMvc.perform(get("/greetings/{id}").param("id", "13"))
-				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Ciao 13!"));
 	}
-*/
-	
 
-	
+	/***********
+	 * Test commentati lasciati per documentazione
+	 * 
+	 **/
+	/*
+	 * @Test error: {id} is not parsed because param() does'nt affect the path
+	 * parameter, only the request parameter public void
+	 * failParamGreetingShouldReturnTailoredMessage() throws Exception {
+	 * this.mockMvc.perform(get("/greetings/{id}").param("id", "13"))
+	 * .andDo(print()).andExpect(status().isOk())
+	 * .andExpect(jsonPath("$.content").value("Ciao 13!")); }
+	 */
+
 }
