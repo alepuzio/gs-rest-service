@@ -36,12 +36,6 @@ public class GreetingControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
-	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/greetings")).andDo(print())
-		.andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, World!"));
-	}
 
 	@Test
 	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
@@ -64,6 +58,8 @@ public class GreetingControllerTests {
 		.andDo(print()).andExpect(status().isOk())
 		.andExpect(jsonPath("$.content").value("Aggiornato [13] contenuto in -altro-!"));
 	}
+
+
 	
 /***********
  * Test commentati lasciati per documentazione
