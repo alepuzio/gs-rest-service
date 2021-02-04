@@ -16,11 +16,9 @@ import com.example.restservice.bean.Greeting;
 @RestController
 public class GreetingController {
 
-	private final AtomicLong counter = new AtomicLong();
-
 	@GetMapping("/greetings/{id}")
 	public Greeting singleGreetings(@PathVariable String id) {
-		return new Greeting(counter.incrementAndGet(), String.format("Ciao %s!", id));
+		return new Greeting(Long.parseLong(id), String.format("Ciao %s!", id));
 	}
 
 	@DeleteMapping("/greetings/{id}")
