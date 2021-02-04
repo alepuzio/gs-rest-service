@@ -23,9 +23,10 @@ public class GroupGreetingControllerTests {
 
 	@Test
 	public void getListGreetings() throws Exception {
-		this.mockMvc.perform(get("/greetings")).andDo(print())
-		.andExpect(status().isOk())
-				//.andExpect(jsonPath("$.content").value("Ciao, World!"))
+		MvcResult mvcResult = this.mockMvc.perform(get("/greetings")).andDo(print())
+		.andExpect(status().isOk()).andReturn();
+		String result = mvcResult.getResponse().getContentAsString();
+		Assertions.assertEquals("[{\"Id\":1,\"Content\":\"Ciao, primo World!\"},{\"Id\":2,\"Content\":\"Ciao, secondo World!\"}]", result);
 		;
 	}
 
