@@ -17,7 +17,6 @@ package com.example.restservice;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,12 +36,6 @@ public class GreetingControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
-	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/greetings")).andDo(print())
-		.andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Ciao, World!"));
-	}
 
 	@Test
 	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
@@ -67,12 +60,6 @@ public class GreetingControllerTests {
 	}
 
 
-	@Test
-	public void postGreeting() throws Exception {
-		this.mockMvc.perform( post("/greetings")/*.content("content=altro")*/ )
-		.andDo(print()).andExpect(status().isOk())
-		.andExpect(jsonPath("$.content").value("Creata nuova risorsa!"));
-	}
 	
 /***********
  * Test commentati lasciati per documentazione
