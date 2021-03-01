@@ -1,4 +1,4 @@
-package com.example.restservice.bean;
+package net.alepuzio.server.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
