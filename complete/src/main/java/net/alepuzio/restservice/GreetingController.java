@@ -1,4 +1,4 @@
-package com.example.restservice;
+package net.alepuzio.restservice;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.restservice.bean.Greeting;
+import net.alepuzio.restservice.bean.Greeting;
 
 @RestController
 public class GreetingController {

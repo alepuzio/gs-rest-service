@@ -1,4 +1,4 @@
-package com.example;
+package net.alepuzio;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.restservice.bean.Greeting;
+import net.alepuzio.restservice.bean.Greeting;
 
 @Component
 public class ClientApplication {

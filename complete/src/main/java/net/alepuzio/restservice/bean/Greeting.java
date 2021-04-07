@@ -1,4 +1,4 @@
-package com.example.restservice.bean;
+package net.alepuzio.restservice.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
