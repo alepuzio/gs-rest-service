@@ -33,9 +33,6 @@ public class Operation {
 	}
 
 
-	public void delete(long id) {
-		restTemplate.delete(String.format("http://localhost:8080/greetings/%s", id));
-	}
 
 	public void post() {
 		Greeting greeting = new Greeting(-2, "creato da client REST");

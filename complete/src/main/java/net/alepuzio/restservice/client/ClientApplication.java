@@ -34,6 +34,9 @@ public class ClientApplication {
 			HTTPVerb httpVerb = new Get(new Op(34));
 			httpVerb.execute();
 			
+			HTTPVerb delete = new Delete(new Op(12));
+			delete.execute();
+			
 			application.getList();
 			application.post();
 			application.putSingle(45);
