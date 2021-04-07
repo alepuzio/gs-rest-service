@@ -8,7 +8,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import net.alepuzio.restservice.client.operation.Delete;
-import net.alepuzio.restservice.client.operation.Get;
+import net.alepuzio.restservice.client.operation.GetMore;
+import net.alepuzio.restservice.client.operation.GetSingle;
 import net.alepuzio.restservice.client.operation.Op;
 import net.alepuzio.restservice.client.operation.Post;
 
@@ -21,21 +22,16 @@ public class ClientApplication {
 	public static void main(String[] a) {
 		try {
 			ClientApplication clientApplication = new ClientApplication();
-			Operation application = new Operation(clientApplication.restTemplate());
-			
-			HTTPVerb httpVerb = new Get(new Op(34));
+			clientApplication.start();
+			HTTPVerb httpVerb = new GetSingle(new Op(34, clientApplication.restTemplate()));
 			httpVerb.execute();
-			HTTPVerb delete = new Delete(new Op(12));
+			HTTPVerb delete = new Delete(new Op(12, clientApplication.restTemplate()));
 			delete.execute();
-			
-			HTTPVerb post = new Post(new Op(12));
+			HTTPVerb post = new Post(new Op(12, clientApplication.restTemplate()));
 			post.execute();
-	
-			application.getList();
-			
-			application.putSingle(45);
-			
-			clientApplication.close();			
+			HTTPVerb getMore = new GetMore(new Op(12, clientApplication.restTemplate()));
+			getMore.execute();
+			clientApplication.stop();			
 		} catch (HttpClientErrorException e) {
 			System.err.println("error:  " + e.getResponseBodyAsString());
 			e.printStackTrace();
@@ -50,8 +46,12 @@ public class ClientApplication {
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 		return restTemplate;
 	}
-	
-	private void close(){
+
+	private void start(){
+		logger.info("Start application client");
+	}
+
+	private void stop(){
 		logger.info("Stop application client");
 	}
 

@@ -8,13 +8,12 @@ import org.springframework.web.client.RestTemplate;
 import net.alepuzio.restservice.bean.Greeting;
 import net.alepuzio.restservice.client.HTTPVerb;
 
-public class Get implements HTTPVerb {
+public class GetSingle implements HTTPVerb {
 	
 	private final HTTPVerb origin;
 	
-	public Get(HTTPVerb newOrigin){
+	public GetSingle(HTTPVerb newOrigin){
 		this.origin = newOrigin;
-		
 	}
 	
 	

@@ -6,10 +6,11 @@ import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Op implements HTTPVerb {
 
-	public final long id ;
-	
-	public Op(long newId){
+	private final long id ;
+	private final RestTemplate restTemplate; 
+	public Op(long newId, RestTemplate newRestTemplate){
 		this.id = newId;
+		this.restTemplate = newRestTemplate;
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public class Op implements HTTPVerb {
 
 	@Override
 	public RestTemplate restTemplate() {
-		throw new UnsupportedOperationException("Unplanned RestTemplate");
+		return this.restTemplate;
 	}
 
 	
