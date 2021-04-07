@@ -32,7 +32,7 @@ public class ClientApplication {
 			post.execute();
 	
 			application.getList();
-			application.post();
+			
 			application.putSingle(45);
 			
 			clientApplication.close();			
