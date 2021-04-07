@@ -1,6 +1,8 @@
-package net.alepuzio.restservice.client;
+package net.alepuzio.restservice.client.operation;
 
 import org.springframework.web.client.RestTemplate;
+
+import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Delete implements HTTPVerb {
 

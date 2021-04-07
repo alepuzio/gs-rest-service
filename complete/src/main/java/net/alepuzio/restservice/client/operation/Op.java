@@ -1,12 +1,14 @@
-package net.alepuzio.restservice.client;
+package net.alepuzio.restservice.client.operation;
 
 import org.springframework.web.client.RestTemplate;
+
+import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Op implements HTTPVerb {
 
 	public final long id ;
 	
-	Op(long newId){
+	public Op(long newId){
 		this.id = newId;
 	}
 
