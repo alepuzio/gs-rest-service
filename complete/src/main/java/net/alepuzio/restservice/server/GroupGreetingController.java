@@ -1,4 +1,4 @@
-package net.alepuzio.restservice;
+package net.alepuzio.restservice.server;
 
 import java.util.ArrayList;
 import java.util.List;

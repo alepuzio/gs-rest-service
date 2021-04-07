@@ -1,4 +1,4 @@
-package net.alepuzio;
+package net.alepuzio.restservice.client;
 
 import java.util.HashMap;
 import java.util.List;

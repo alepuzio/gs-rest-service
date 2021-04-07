@@ -1,4 +1,4 @@
-package net.alepuzio.restservice;
+package net.alepuzio.restservice.server;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
