@@ -1,4 +1,4 @@
-package com.example.restservice;
+package net.alepuzio.restservice.server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.restservice.bean.Greeting;
+import net.alepuzio.restservice.bean.Greeting;
 
 @RestController
 public class GroupGreetingController {

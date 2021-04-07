@@ -1,4 +1,4 @@
-package com.example.restservice.bean;
+package net.alepuzio.restservice.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,11 +12,11 @@ public class Greeting {
 		this.id = id;
 		this.content = content;
 	}
-	/*senza costruttore vuoto ho un
+	/*with no empty constructor I receive
 	 * Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: 
 	 * Cannot construct instance of `com.example.restservice.bean.Greeting` (no Creators, like default constructor, exist): 
 	 * cannot deserialize from Object value (no delegate- or property-based Creator)
-	 * quando chiamo la POST e le GET da client */
+	 * when the client calls POST and GET */
 	public Greeting() {
 		super();
 	}

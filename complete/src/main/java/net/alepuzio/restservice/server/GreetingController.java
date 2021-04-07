@@ -1,5 +1,6 @@
-package com.example.restservice;
+package net.alepuzio.restservice.server;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.restservice.bean.Greeting;
+import net.alepuzio.restservice.bean.Greeting;
 
 @RestController
 public class GreetingController {
+
+	private Logger logger = Logger.getLogger(this.getClass());
 
 	@GetMapping("/greetings/{id}")
 	@ResponseBody
@@ -28,7 +31,7 @@ public class GreetingController {
 	@PutMapping("/greetings/{idResource}") 
 	@ResponseBody
 	public ResponseEntity<Greeting> aggiornaGreeting(@PathVariable(value="idResource") String id, @RequestBody Greeting greeting) {
-		System.out.println(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
+		logger.info(String.format("aggiornaGreeting(%s,%s)", id, greeting.toString()));
 		Greeting updatedGreeting = new Greeting(Long.parseLong(id), greeting.getContent()); 
 		return  ResponseEntity.ok(new Greeting(updatedGreeting.getId(),
 				String.format("Aggiornato [%s] contenuto in -%s-!", id, updatedGreeting.getContent())));
