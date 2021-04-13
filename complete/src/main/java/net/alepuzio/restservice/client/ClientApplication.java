@@ -31,6 +31,8 @@ public class ClientApplication {
 			post.execute();
 			HTTPVerb getMore = new GetMore(new Op(12, clientApplication.restTemplate()));
 			getMore.execute();
+			HTTPVerb authenticate = new Post(new Authenticate(new Op(12, clientApplication.restTemplate())));
+			getMore.execute();
 			clientApplication.stop();			
 		} catch (HttpClientErrorException e) {
 			System.err.println("error:  " + e.getResponseBodyAsString());
