@@ -1,9 +1,10 @@
 package net.alepuzio.restservice.server.jwt;
-
+import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 /**
  * from https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world
  * */
+@Component
 public class JwtUserDetailsService {
 	
 	public UserDetails loadUserByUsername(String name){
