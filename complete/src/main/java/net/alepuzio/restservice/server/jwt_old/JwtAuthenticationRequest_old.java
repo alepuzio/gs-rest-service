@@ -3,18 +3,18 @@ package net.alepuzio.restservice.server.jwt_old;
 import java.io.Serializable;
 
 
-public class  JwtAuthenticationRequest implements Serializable {
+public class  JwtAuthenticationRequest_old implements Serializable {
 
     private static final long serialVersionUID = -8445943548965154778L;
 
     private String username;
     private String password;
 
-    public JwtAuthenticationRequest() {
+    public JwtAuthenticationRequest_old() {
         super();
     }
 
-    public JwtAuthenticationRequest(String username, String password) {
+    public JwtAuthenticationRequest_old(String username, String password) {
         this.setUsername(username);
         this.setPassword(password);
     }

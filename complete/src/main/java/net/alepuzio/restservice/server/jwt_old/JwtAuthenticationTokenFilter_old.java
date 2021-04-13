@@ -18,14 +18,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /***
  * Receive the request from backend and verify the validity of the token
  * */
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JwtAuthenticationTokenFilter_old extends OncePerRequestFilter {
 
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenUtil_old jwtTokenUtil;
 
     @Value("${jwt.header}")
     private String tokenHeader;

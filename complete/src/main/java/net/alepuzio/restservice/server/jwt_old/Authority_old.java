@@ -2,13 +2,13 @@ package net.alepuzio.restservice.server.jwt_old;
 
 import java.util.List;
 
-public class Authority {
+public class Authority_old {
 
     private Long id;
 
-    private AuthorityName name;
+    private AuthorityName_old name;
 
-    private List<User> users;
+    private List<User_old> users;
 
 	public Long getId() {
 		return id;
@@ -18,19 +18,19 @@ public class Authority {
 		this.id = id;
 	}
 
-	public AuthorityName getName() {
+	public AuthorityName_old getName() {
 		return name;
 	}
 
-	public void setName(AuthorityName name) {
+	public void setName(AuthorityName_old name) {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
+	public List<User_old> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<User_old> users) {
 		this.users = users;
 	}
 

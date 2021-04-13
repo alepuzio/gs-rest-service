@@ -32,13 +32,13 @@ public class AuthenticationRestController_old {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenUtil_old jwtTokenUtil;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @RequestMapping(value = "public/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device, HttpServletResponse response) throws AuthenticationException, JsonProcessingException {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest_old authenticationRequest, Device device, HttpServletResponse response) throws AuthenticationException, JsonProcessingException {
 
         // Effettuo l autenticazione
         final Authentication authentication = authenticationManager.authenticate(
@@ -54,7 +54,7 @@ public class AuthenticationRestController_old {
         final String token = jwtTokenUtil.generateToken(userDetails, device);
         response.setHeader(tokenHeader,token);
         // Ritorno il token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(),userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtAuthenticationResponse_old(userDetails.getUsername(),userDetails.getAuthorities()));
     }
 
     @RequestMapping(value = "protected/refresh-token", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class AuthenticationRestController_old {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             response.setHeader(tokenHeader,refreshedToken);
 
-            return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(),userDetails.getAuthorities()));
+            return ResponseEntity.ok(new JwtAuthenticationResponse_old(userDetails.getUsername(),userDetails.getAuthorities()));
         } else {
             return ResponseEntity.badRequest().body(null);
         }

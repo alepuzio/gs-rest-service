@@ -1,184 +1,113 @@
 package net.alepuzio.restservice.server.jwt;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import net.alepuzio.restservice.server.jwt_old.JwtUser;
-
+/**
+ * from https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world
+ * */
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    private static final long serialVersionUID = -3301605591108950415L;
+	private static final long serialVersionUID = -2550185165626007488L;
 
-    static final String CLAIM_KEY_USERNAME = "sub";
-    static final String CLAIM_KEY_AUDIENCE = "audience";
-    static final String CLAIM_KEY_CREATED = "iat";
-    static final String CLAIM_KEY_AUTHORITIES = "roles";
-    static final String CLAIM_KEY_IS_ENABLED = "isEnabled";
+	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-    private static final String AUDIENCE_MOBILE = "mobile";
-    private static final String AUDIENCE_TABLET = "tablet";
+	@Value("${jwt.secret}")
+	private String secret;
 
-    @Value("${jwt.secret}")
-    private String secret;
+	public boolean canTokenBeRefreshed(String value){
+		return false;
+	}
+	
+	public String refreshToken(String token){
+		return String.format("%s-%s", token, new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+	}
+	/**
+	 * retrieve username from jwt token
+	 * */
+	public String getUsernameFromToken(String token) {
+		return getClaimFromToken(token, Claims::getSubject);
+	}
+	
+	public UserDetails getUserDetails(String token){
+		return new User(getUsernameFromToken(token), "", null, true,true);
+	}
 
-    @Autowired
-    ObjectMapper objectMapper;
+	/**
+	 * retrieve expiration date from jwt token
+	 * */
+	public Date getExpirationDateFromToken(String token) {
+		return getClaimFromToken(token, Claims::getExpiration);
+	}
 
-    @Value("${jwt.expiration}")
-    private Long expiration;
+	public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+		return claimsResolver.apply(getAllClaimsFromToken(token));
+	}
 
-    public String getUsernameFromToken(String token) {
-        String username;
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            username = claims.getSubject();
-        } catch (Exception e) {
-            username = null;
-        }
-        return username;
-    }
+	/**
+	 * for retrieveing any information from token we will need the secret key
+	 * */
+	private Claims getAllClaimsFromToken(String token) {
+		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+	}
 
-    public JwtUser getUserDetails(String token) {
+	/***
+	 * check if the token has expired
+	 * @param token
+	 * @return
+	 */
+	private Boolean isTokenExpired(String token) {
+		return getExpirationDateFromToken(token).before(new Date());
+	}
 
-        if(token == null){
-            return null;
-        }
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            List<SimpleGrantedAuthority> authorities = null;
-            if (claims.get(CLAIM_KEY_AUTHORITIES) != null) {
-                authorities = ((List<String>) claims.get(CLAIM_KEY_AUTHORITIES)).stream().map(role-> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
-            }
+	/***
+	 * generate token for user
+	 * @param userDetails
+	 * @return
+	 */
+	public String generateToken(UserDetails userDetails) {
+		return doGenerateToken(new HashMap<>(), userDetails.getUsername());
+	}
 
-            return new JwtUser(
-                    claims.getSubject(),
-                    "",
-                    authorities,
-                    (boolean) claims.get(CLAIM_KEY_IS_ENABLED)
-            );
-        } catch (Exception e) {
-            return null;
-        }
+	/*
+	 * while creating the token -
+	 
+	// 1. Define claims of the token, like Issuer, Expiration, Subject, and the
+	// ID
+	// 2. Sign the JWT using the HS512 algorithm and secret key.
+	// 3. According to JWS Compact
+	// Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
+	// compaction of the JWT to a URL-safe string
+	*/
+	private String doGenerateToken(Map<String, Object> claims, String subject) {
+		return Jwts.builder()
+				.setClaims(claims)
+				.setSubject(subject)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))//TOOD using string.format
+				.signWith(SignatureAlgorithm.HS512, secret)
+				.compact();
+	}
 
-    }
-
-    public Date getCreatedDateFromToken(String token) {
-        Date created;
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            created = new Date((Long) claims.get(CLAIM_KEY_CREATED));
-        } catch (Exception e) {
-            created = null;
-        }
-        return created;
-    }
-
-    public Date getExpirationDateFromToken(String token) {
-        Date expiration;
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            expiration = claims.getExpiration();
-        } catch (Exception e) {
-            expiration = null;
-        }
-        return expiration;
-    }
-
-    public String getAudienceFromToken(String token) {
-        String audience;
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            audience = (String) claims.get(CLAIM_KEY_AUDIENCE);
-        } catch (Exception e) {
-            audience = null;
-        }
-        return audience;
-    }
-
-    private Claims getClaimsFromToken(String token) {
-        Claims claims;
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            claims = null;
-        }
-        return claims;
-    }
-
-    private Date generateExpirationDate() {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
-
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
-    }
-
-    private Boolean ignoreTokenExpiration(String token) {
-        String audience = getAudienceFromToken(token);
-        return (AUDIENCE_TABLET.equals(audience) || AUDIENCE_MOBILE.equals(audience));
-    }
-
-    public String generateToken(UserDetails userDetails) throws JsonProcessingException {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        claims.put(CLAIM_KEY_CREATED, new Date());
-        List<String> auth =userDetails.getAuthorities().stream().map(role-> role.getAuthority()).collect(Collectors.toList());
-        claims.put(CLAIM_KEY_AUTHORITIES, auth);
-        claims.put(CLAIM_KEY_IS_ENABLED,userDetails.isEnabled());
-
-        return generateToken(claims);
-    }
-
-    String generateToken(Map<String, Object> claims) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
-    }
-
-    public Boolean canTokenBeRefreshed(String token) {
-        return  (!isTokenExpired(token) || ignoreTokenExpiration(token));
-    }
-
-    public String refreshToken(String token) {
-        String refreshedToken;
-        try {
-            final Claims claims = getClaimsFromToken(token);
-            claims.put(CLAIM_KEY_CREATED, new Date());
-            refreshedToken = generateToken(claims);
-        } catch (Exception e) {
-            refreshedToken = null;
-        }
-        return refreshedToken;
-    }
-
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        JwtUser user = (JwtUser) userDetails;
-        final String username = getUsernameFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token));
-    }
+	/***
+	 * validate token
+	 * @param token
+	 * @param userDetails
+	 * @return
+	 */
+	public Boolean validateToken(String token, UserDetails userDetails) {
+		return (getUsernameFromToken(token).equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
 }

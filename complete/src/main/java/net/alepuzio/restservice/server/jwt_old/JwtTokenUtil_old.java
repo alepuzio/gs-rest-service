@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * ( the propertiy is 7200 sec, then 2h)
  */
 @Component
-public class JwtTokenUtil implements Serializable {
+public class JwtTokenUtil_old implements Serializable {
 
 	private static final long serialVersionUID = -3301605591108950415L;
 
@@ -58,7 +58,7 @@ public class JwtTokenUtil implements Serializable {
 		return username;
 	}
 
-	public JwtUser getUserDetails(String token) {
+	public JwtUser_old getUserDetails(String token) {
 
 		if (token == null) {
 			return null;
@@ -71,7 +71,7 @@ public class JwtTokenUtil implements Serializable {
 						.map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
 			}
 
-			return new JwtUser(claims.getSubject(), "", authorities, (boolean) claims.get(CLAIM_KEY_IS_ENABLED));
+			return new JwtUser_old(claims.getSubject(), "", authorities, (boolean) claims.get(CLAIM_KEY_IS_ENABLED));
 		} catch (Exception e) {
 			return null;
 		}
@@ -184,7 +184,7 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
-		JwtUser user = (JwtUser) userDetails;
+		JwtUser_old user = (JwtUser_old) userDetails;
 		final String username = getUsernameFromToken(token);
 		return (username.equals(user.getUsername()) && !isTokenExpired(token));
 	}

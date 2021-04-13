@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-public final class JwtUserFactory {
+public final class JwtUserFactory_old {
 
-    private JwtUserFactory() {
+    private JwtUserFactory_old() {
     }
 
-    public static JwtUser create(User user) {
-        return new JwtUser(
+    public static JwtUser_old create(User_old user) {
+        return new JwtUser_old(
                 user.getUsername(),
                 user.getPassword(),
                 mapToGrantedAuthorities(user.getAuthorities()),
@@ -20,7 +20,7 @@ public final class JwtUserFactory {
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
+    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority_old> authorities) {
         return authorities.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
                 .collect(Collectors.toList());

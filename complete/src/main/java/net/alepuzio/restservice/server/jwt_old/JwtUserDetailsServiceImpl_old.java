@@ -6,17 +6,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtUserDetailsServiceImpl implements UserDetailsService {
+public class JwtUserDetailsServiceImpl_old implements UserDetailsService {
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = new User();
+        User_old user = new User_old();
         user.setUsername(username);
         user.setEnabled(true);
         user.setAuthorities(null);
         user.setPassword("ahahah");
-        return JwtUserFactory.create(user);
+        return JwtUserFactory_old.create(user);
 
 //        if (user == null) {
 //            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));

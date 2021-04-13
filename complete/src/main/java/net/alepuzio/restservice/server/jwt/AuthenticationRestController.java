@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import net.alepuzio.restservice.server.jwt_old.JwtAuthenticationRequest;
-import net.alepuzio.restservice.server.jwt_old.JwtAuthenticationResponse;
+import net.alepuzio.restservice.server.jwt_old.JwtAuthenticationRequest_old;
+import net.alepuzio.restservice.server.jwt_old.JwtAuthenticationResponse_old;
 /**
  * from https://www.matteoavanzini.it/spring-security-via-rest-con-jwt/
  * */
@@ -44,7 +44,7 @@ public class AuthenticationRestController {
     private UserDetailsService userDetailsService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) throws AuthenticationException, JsonProcessingException {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest_old authenticationRequest, HttpServletResponse response) throws AuthenticationException, JsonProcessingException {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
@@ -57,7 +57,7 @@ public class AuthenticationRestController {
         final String token = jwtTokenUtil.generateToken(userDetails);
         response.setHeader(tokenHeader,token);
         // Ritorno il token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(),userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtAuthenticationResponse_old(userDetails.getUsername(),userDetails.getAuthorities()));
     }
 
     @RequestMapping(value = "protected/refresh-token", method = RequestMethod.GET)
@@ -67,8 +67,8 @@ public class AuthenticationRestController {
                 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            response.setHeader(tokenHeader,refreshedToken);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(), userDetails.getAuthorities()));
+            response.setHeader(tokenHeader, refreshedToken);
+            return ResponseEntity.ok(new JwtAuthenticationResponse_old(userDetails.getUsername(), userDetails.getAuthorities()));
         } else {
             return ResponseEntity.badRequest().body(null);
         }

@@ -2,14 +2,14 @@ package net.alepuzio.restservice.server.jwt_old;
 
 import java.util.List;
 
-public class User {
+public class User_old {
     private String username;
 
     private String password;
 
     private Boolean enabled;
 
-    private List<Authority> authorities;
+    private List<Authority_old> authorities;
 
 	public String getUsername() {
 		return username;
@@ -35,11 +35,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public List<Authority> getAuthorities() {
+	public List<Authority_old> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(List<Authority> authorities) {
+	public void setAuthorities(List<Authority_old> authorities) {
 		this.authorities = authorities;
 	}
     

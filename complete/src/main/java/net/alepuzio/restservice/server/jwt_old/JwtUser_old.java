@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  * Created by stephan on 20.03.16.
  */
-public class JwtUser implements UserDetails {
+public class JwtUser_old implements UserDetails {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class JwtUser implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
 
-    public JwtUser(
+    public JwtUser_old(
             String username,
             String password, Collection<? extends GrantedAuthority> authorities,
             boolean enabled
