@@ -25,6 +25,7 @@ public class ClientApplication {
 		Resource singleGreeting = new Resource("http://localhost:8080/greetings/", 34);
 		Resource moreGreeting = new Resource("http://localhost:8080/greetings/", -1);
 		ClientApplication clientApplication = new ClientApplication();
+		Resource singleAuthGreeting = new Resource("http://localhost:8080/auth/greetings/", 34);
 		try {
 			clientApplication.start();
 			HTTPVerb httpVerb = new GetSingle(new Op( singleGreeting));
@@ -35,8 +36,8 @@ public class ClientApplication {
 			post.execute();
 			HTTPVerb getMore = new GetMore(new Op( moreGreeting));
 			getMore.execute();
-//			HTTPVerb authenticate = new Post(new Authenticate(new Op(12, clientApplication.restTemplate(), url)));
-	//		authenticate.execute();
+			HTTPVerb authenticate = new Authenticate(new Op(singleAuthGreeting));
+			authenticate.execute();
 			clientApplication.stop();			
 		} catch (HttpClientErrorException e) {
 			clientApplication.logger.fatal("error:  " + e.getResponseBodyAsString());
@@ -44,13 +45,6 @@ public class ClientApplication {
 		} catch (Exception e) {
 			clientApplication.logger.fatal(e);
 		}
-	}
-
-	private RestTemplate restTemplate(){
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-		return restTemplate;
 	}
 
 	private void start(){

@@ -3,10 +3,9 @@ package net.alepuzio.restservice.client.operation;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
-import net.alepuzio.restservice.bean.Greeting;
+import net.alepuzio.restservice.bean.AuthGreeting;
 import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Authenticate implements HTTPVerb {
@@ -25,9 +24,9 @@ public class Authenticate implements HTTPVerb {
 
 	@Override
 	public void execute() {
-		Greeting greeting = new Greeting( id(), "Authenticate by the REST client");
-		String resource = String.format("%s/authenticate/", this.url());
-		ResponseEntity<Greeting> result = this.origin.restTemplate().postForEntity(resource, greeting, Greeting.class);
+		AuthGreeting greeting = new AuthGreeting( id(),"REST client","username","password");
+		String resource = String.format("%s", this.origin.url());
+		ResponseEntity<AuthGreeting> result = this.origin.restTemplate().postForEntity(resource, greeting, AuthGreeting.class);
 		final HttpStatus status = result.getStatusCode();
 		final int statusCode = result.getStatusCodeValue();
 		if(HttpStatus.ACCEPTED == status){
