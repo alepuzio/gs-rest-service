@@ -1,0 +1,135 @@
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8080/greetings/34": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - error:  {"timestamp":"2021-04-14T07:55:32.471+00:00","status":401,"error":"Unauthorized","message":"","path":"/greetings/34"}
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - org.springframework.web.client.HttpClientErrorException$Unauthorized: 401 : [{"timestamp":"2021-04-14T07:55:32.471+00:00","status":401,"error":"Unauthorized","message":"","path":"/greetings/34"}]
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:22:00 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - GetSingle(34):
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:23:01 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:23:44 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:23:55 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:24:54 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:26:45 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:26:45 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:26:45 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:05 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - getSingle():200 OK[200]
+-
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:05 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - getSingle():200 OK[200]
+-
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:05 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:27 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - post():200 OK[200]
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:27 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - post():200 OK[200]
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:27:27 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:29:19 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - post():200 OK[200]
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:29:19 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(12)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - post():200 OK[200]
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 08:29:19 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(12)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - error:  {"timestamp":"2021-04-14T09:00:29.475+00:00","status":404,"error":"Not Found","message":"","path":"/greeting/greetings/34"}
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - org.springframework.web.client.HttpClientErrorException$NotFound: 404 : [{"timestamp":"2021-04-14T09:00:29.475+00:00","status":404,"error":"Not Found","message":"","path":"/greeting/greetings/34"}]
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - error:  {"timestamp":"2021-04-14T09:01:25.628+00:00","status":404,"error":"Not Found","message":"","path":"/greeting/34"}
+[main] FATAL net.alepuzio.restservice.client.ClientApplication  - org.springframework.web.client.HttpClientErrorException$NotFound: 404 : [{"timestamp":"2021-04-14T09:01:25.628+00:00","status":404,"error":"Not Found","message":"","path":"/greeting/34"}]
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Start application client
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - >GetSingle(34)
+[main] ERROR net.alepuzio.restservice.client.operation.GetSingle  - getSingle():200 OK[200]
+->[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 09:02:15 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+[main] INFO  net.alepuzio.restservice.client.operation.GetSingle  - <GetSingle(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - >post(34)
+[main] ERROR net.alepuzio.restservice.client.operation.Post  - post():200 OK[200]
+>[Content-Type:"application/json", Transfer-Encoding:"chunked", Date:"Wed, 14 Apr 2021 09:02:15 GMT", Keep-Alive:"timeout=60", Connection:"keep-alive"]
+
+[main] INFO  net.alepuzio.restservice.client.operation.Post  - <post(34)
+**************************
+[main] INFO  net.alepuzio.restservice.client.ClientApplication  - Stop application client

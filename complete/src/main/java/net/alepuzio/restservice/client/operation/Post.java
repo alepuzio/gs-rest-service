@@ -13,6 +13,7 @@ public class Post implements HTTPVerb {
 	private HTTPVerb origin;
 	private Logger logger = Logger.getLogger(this.getClass());
 	
+	
 	public Post(HTTPVerb newHttpVerb) {
 		super();
 		this.origin = newHttpVerb;
@@ -25,19 +26,28 @@ public class Post implements HTTPVerb {
 
 	@Override
 	public void execute() {
-			Greeting greeting = new Greeting(-2, "creato da client REST");
-			ResponseEntity<Greeting> result = this.origin.restTemplate().postForEntity("http://localhost:8080/greetings/", greeting, Greeting.class);
-			final HttpStatus status = result.getStatusCode();
-			if(HttpStatus.ACCEPTED == status){
-				logger.info("post():" + result.getBody());			
-			}else{
-				System.err.println("post():" + status);
-			}
+		logger.info(String.format(">post(%s)", id() ));	
+		Greeting greeting = new Greeting(-2, "creato da client REST");
+		ResponseEntity<Greeting> result = this.origin.restTemplate().postForEntity(
+				String.format("%s/", this.url()), 
+				greeting,
+				Greeting.class);
+		final HttpStatus status = result.getStatusCode();
+		final int statusCode = result.getStatusCodeValue();
+		if (HttpStatus.ACCEPTED == status) {
+			logger.info(String.format("post():[%d]\n->%s", statusCode, result.getBody() ));			
+		} else {
+			logger.error(String.format("post():%s[%d]\n>%s\n", status, statusCode, result.getHeaders()));
+		}
+		logger.info(String.format("<post(%s)\n**************************" , this.id()));
 	}
 
 	@Override
 	public RestTemplate restTemplate() {
 		return this.origin.restTemplate();
 	}
-
+	@Override
+	public String url() {
+		return this.origin.url();
+	}
 }

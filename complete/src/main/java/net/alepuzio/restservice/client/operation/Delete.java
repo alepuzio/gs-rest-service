@@ -2,6 +2,7 @@ package net.alepuzio.restservice.client.operation;
 
 import org.springframework.web.client.RestTemplate;
 
+import net.alepuzio.restservice.bean.Greeting;
 import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Delete implements HTTPVerb {
@@ -20,12 +21,16 @@ public class Delete implements HTTPVerb {
 
 	@Override
 	public void execute() {
-		 this.origin.restTemplate().delete(String.format("http://localhost:8080/greetings/%s", id()));
+		 this.origin.restTemplate().delete(String.format("%s/%s", this.url(),  id()), Greeting.class);
+		 
 	}
 
 	@Override
 	public RestTemplate restTemplate() {
 		return this.origin.restTemplate();
 	}
-
+	@Override
+	public String url() {
+		return this.origin.url();
+	}
 }

@@ -6,16 +6,17 @@ import net.alepuzio.restservice.client.HTTPVerb;
 
 public class Op implements HTTPVerb {
 
-	private final long id ;
 	private final RestTemplate restTemplate; 
-	public Op(long newId, RestTemplate newRestTemplate){
-		this.id = newId;
-		this.restTemplate = newRestTemplate;
+	private  Resource resource;
+	
+	public Op(Resource resource){
+		this.restTemplate = resource.restTemplate();
+		this.resource = resource;
 	}
 
 	@Override
 	public long id() {
-		return this.id;
+		return this.resource.id();
 	}
 
 	@Override
@@ -26,6 +27,11 @@ public class Op implements HTTPVerb {
 	@Override
 	public RestTemplate restTemplate() {
 		return this.restTemplate;
+	}
+
+	@Override
+	public String url() {
+		return resource.path();
 	}
 
 	

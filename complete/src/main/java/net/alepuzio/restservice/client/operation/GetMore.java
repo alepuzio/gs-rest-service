@@ -26,7 +26,7 @@ public class GetMore implements HTTPVerb {
 
 	@Override
 	public void execute() {
-			ResponseEntity<List> result = this.restTemplate().getForEntity("http://localhost:8080/greetings", List.class);
+			ResponseEntity<List> result = this.restTemplate().getForEntity(String.format("%s/", this.url()), List.class);
 			if(HttpStatus.ACCEPTED == result.getStatusCode()){
 				List<Greeting> getGreeting = result.getBody();
 				logger.info("getList():"+getGreeting);
@@ -37,5 +37,8 @@ public class GetMore implements HTTPVerb {
 	public RestTemplate restTemplate() {
 		return this.origin.restTemplate();
 	}
-
+	@Override
+	public String url() {
+		return this.origin.url();
+	}
 }

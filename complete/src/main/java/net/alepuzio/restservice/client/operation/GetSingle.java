@@ -1,5 +1,7 @@
 package net.alepuzio.restservice.client.operation;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +22,18 @@ public class GetSingle implements HTTPVerb {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	public void execute() {
+		logger.info(String.format(">GetSingle(%s)" , this.id()));
 		ResponseEntity<Greeting> result = this.restTemplate().getForEntity(
-				String.format("http://localhost:8080/greetings/%s", id()),
-				Greeting.class);
+						String.format("%s/%s", this.url(), this.id()), 
+						Greeting.class);
 		final HttpStatus status = result.getStatusCode();
-		if ( HttpStatus.ACCEPTED == status ) {
-			logger.info(String.format("getSingle(%s):%s", this.id(), result.getBody()));			
+		final int statusCode = result.getStatusCodeValue();
+		if (HttpStatus.ACCEPTED == status) {
+			logger.info(String.format("getSingle():[%d]\n->%s", statusCode, result.getBody() ));			
 		} else {
-			System.err.println(String.format("getSingle(%s): %s", this.id(), status));
+			logger.error(String.format("getSingle():%s[%d]\n->%s", status, statusCode, result.getHeaders()));
 		}
+		logger.info(String.format("<GetSingle(%s)\n**************************" , this.id()));
 	}
 
 	@Override
@@ -39,6 +44,11 @@ public class GetSingle implements HTTPVerb {
 	@Override
 	public long id() {
 		return this.origin.id();
+	}
+	
+	@Override
+	public String url() {
+		return this.origin.url();
 	}
 
 }

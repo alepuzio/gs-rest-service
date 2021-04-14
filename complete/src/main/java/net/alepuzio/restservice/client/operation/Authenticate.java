@@ -3,6 +3,7 @@ package net.alepuzio.restservice.client.operation;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
 import net.alepuzio.restservice.bean.Greeting;
@@ -24,13 +25,15 @@ public class Authenticate implements HTTPVerb {
 
 	@Override
 	public void execute() {
-		Greeting greeting = new Greeting(-2, "creato da client REST");
-		ResponseEntity<Greeting> result = this.origin.restTemplate().postForEntity("http://localhost:8080/authenticate/", greeting, Greeting.class);
+		Greeting greeting = new Greeting( id(), "Authenticate by the REST client");
+		String resource = String.format("%s/authenticate/", this.url());
+		ResponseEntity<Greeting> result = this.origin.restTemplate().postForEntity(resource, greeting, Greeting.class);
 		final HttpStatus status = result.getStatusCode();
+		final int statusCode = result.getStatusCodeValue();
 		if(HttpStatus.ACCEPTED == status){
-			logger.info(String.format("post():%s",result.getBody()));			
+			logger.info(String.format("post():%s[%d]", result.getBody(), statusCode));			
 		}else{
-			logger.error(String.format("post():%s", status));
+			logger.error(String.format("post():%s[%d]->%s", status, statusCode, result.getHeaders()));
 		}
 
 	}
@@ -38,5 +41,10 @@ public class Authenticate implements HTTPVerb {
 	@Override
 	public RestTemplate restTemplate() {
 		return this.origin.restTemplate();	
+	}
+	
+	@Override
+	public String url() {
+		return this.origin.url();
 	}
 }
