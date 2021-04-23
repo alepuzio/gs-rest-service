@@ -13,18 +13,25 @@ import net.alepuzio.restservice.client.HTTPVerb;
 public class GetSingle implements HTTPVerb {
 	
 	private final HTTPVerb origin;
+	private final String queryParam;
 	
 	public GetSingle(HTTPVerb newOrigin){
 		this.origin = newOrigin;
+		this.queryParam = "";
 	}
 	
+	public GetSingle(HTTPVerb newOrigin, String queryParam){
+		this.origin = newOrigin;
+		this.queryParam = queryParam;
+	}
+
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	public void execute() {
 		logger.info(String.format(">GetSingle(%s)" , this.id()));
 		ResponseEntity<Greeting> result = this.restTemplate().getForEntity(
-						String.format("%s/%s", this.url(), this.id()), 
+						String.format("%s/%s?name=", this.url(), this.id()), 
 						Greeting.class);
 		final HttpStatus status = result.getStatusCode();
 		final int statusCode = result.getStatusCodeValue();
